@@ -112,7 +112,8 @@ def getMovies(title, passw):
 	conn = psycopg2.connect(database="test", user="postgres", password=passw, host="127.0.0.1", port="5432")
 	global cur
 	cur = conn.cursor()
-	cur.execute("SELECT * from MOVIES WHERE title = " + "'" + title + "'")
+	title = "%" + title + "%"
+	cur.execute("SELECT * from MOVIES WHERE MOVIES.title LIKE '" + title + "'")
 	result = cur.fetchall()
 	if result != []:
 		found_movies = []
